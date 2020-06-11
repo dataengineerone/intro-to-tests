@@ -60,16 +60,25 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     data_engineering_pipeline = de.create_pipeline()
     data_science_pipeline = ds.create_pipeline()
 
-    testable_pipeline = Pipeline([
-        node(upper_caser,
-             inputs="example_iris_data",
-             outputs="01_raw/upper_cased.csv",
-             )
-    ])
+    testable_pipeline = Pipeline(
+        [
+            node(
+                upper_caser,
+                inputs="example_iris_data",
+                outputs="01_raw/upper_cased.csv",
+            )
+        ]
+    )
 
     return {
-        "__default__": Pipeline([node(check_iris_data,
-                                      inputs='unchecked_example_iris_data',
-                                      outputs='example_iris_data',
-                                      )]) + data_engineering_pipeline
+        "__default__": Pipeline(
+            [
+                node(
+                    check_iris_data,
+                    inputs="unchecked_example_iris_data",
+                    outputs="example_iris_data",
+                )
+            ]
+        )
+        + data_engineering_pipeline
     }

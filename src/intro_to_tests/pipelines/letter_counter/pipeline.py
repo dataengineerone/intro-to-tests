@@ -36,13 +36,11 @@ from kedro.pipeline import Pipeline, node
 from .nodes import upper_caser, count_letters
 
 
-def create_pipeline(inputs='inputs', outputs='outputs'):
+def create_pipeline(inputs="inputs", outputs="outputs"):
 
-    return Pipeline([
-        node(upper_caser,
-             inputs=inputs,
-             outputs='upper_cased_data'),
-        node(count_letters,
-             inputs='upper_cased_data',
-             outputs=outputs)
-    ])
+    return Pipeline(
+        [
+            node(upper_caser, inputs=inputs, outputs="upper_cased_data"),
+            node(count_letters, inputs="upper_cased_data", outputs=outputs),
+        ]
+    )

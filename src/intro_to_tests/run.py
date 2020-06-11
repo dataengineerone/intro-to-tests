@@ -43,9 +43,7 @@ class ProjectContext(KedroContext):
     or create new ones (e.g. as required by plugins)
     """
 
-    hooks = (
-        KedroWings(),
-    )
+    hooks = (KedroWings(),)
 
     project_name = "intro-to-tests"
     # `project_version` is the version of kedro used to generate the project
