@@ -43,6 +43,7 @@ from intro_to_tests.pipelines import data_science as ds
 # Delete this when you start working on your own Kedro project as
 # well as pipelines/data_science AND pipelines/data_engineering
 # -------------------------------------------------------------------------
+from intro_to_tests.quality.example_iris_data import check_iris_data
 
 
 def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
@@ -63,10 +64,12 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
         node(upper_caser,
              inputs="example_iris_data",
              outputs="01_raw/upper_cased.csv",
-         )
+             )
     ])
 
     return {
-        "testing": testable_pipeline,
-        "__default__": testable_pipeline,
+        "__default__": Pipeline([node(check_iris_data,
+                                      inputs='unchecked_example_iris_data',
+                                      outputs='example_iris_data',
+                                      )]) + data_engineering_pipeline
     }
